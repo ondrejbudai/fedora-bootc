@@ -30,6 +30,11 @@ jobs:
         run: |
           rpm-ostree compose image --format=ociarchive \
           --initialize fedora-39-bootc.yaml dest.oci-archive
+
+      - name: Push
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+        run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | skopeo login ghcr.io -u $ --password-stdin
-          skopeo copy oci-archive:./dest.oci-archive docker://ghcr.io/${{ github.repository }}:latest
+          skopeo copy oci-archive:./dest.oci-archive docker://ghcr.io/${{ github.repository }}:39-$(date --iso-8601=date)
+          skopeo copy oci-archive:./dest.oci-archive docker://ghcr.io/${{ github.repository }}:39
 
