@@ -6,8 +6,9 @@ on:
       - main
     paths-ignore:
       - "docs/**"
-
   workflow_dispatch:
+  schedule:
+    - cron: '35 4 * * *'
 
 jobs:
   build-image:
