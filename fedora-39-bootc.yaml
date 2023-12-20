@@ -1,0 +1,15 @@
+releasever: 39
+variables:
+  distro: "eln"
+
+repos:
+  - fedora
+  - fedora-updates
+
+metadata:
+  name: fedora-boot-tier1
+  summary: Fedora Bootable Tier 1
+
+include:
+  - tier-1/manifest.yaml
+  - tier-1/kernel.yaml
