@@ -29,7 +29,6 @@ jobs:
         run: |
           rpm-ostree compose image --format=ociarchive \
           --initialize fedora-39-bootc.yaml dest.oci-archive
-          skopeo copy oci-archive:./dest.oci-archive containers-storage:ghcr.io/${{ github.repository }}:latest
-          echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u $ --password-stdin
-          podman push ghcr.io/${{ github.repository }}:latest
+          echo "${{ secrets.GITHUB_TOKEN }}" | skopeo login ghcr.io -u $ --password-stdin
+          skopeo copy oci-archive:./dest.oci-archive docker://ghcr.io/${{ github.repository }}:latest
 
